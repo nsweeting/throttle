@@ -5,6 +5,8 @@ defmodule Throttle.Mixfile do
     [app: :throttle,
      version: "0.1.0",
      elixir: "~> 1.4",
+     description: description(),
+     package: package(),
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps()]
@@ -31,7 +33,7 @@ defmodule Throttle.Mixfile do
       files: ["lib", "mix.exs", "README*"],
       maintainers: ["Nicholas Sweeting"],
       licenses: ["MIT"],
-      links:  %{"GitHub" => "https://github.com/nsweeting/shopify"}
+      links:  %{"GitHub" => "https://github.com/nsweeting/throttle"}
     ]
   end
 
@@ -47,6 +49,7 @@ defmodule Throttle.Mixfile do
   defp deps do
     [
       {:redis_connection_pool, "~> 0.1.4"},
+      {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
 end
