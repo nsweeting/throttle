@@ -8,13 +8,13 @@ Add the following to your list of dependencies in mix.exs:
 
 ```elixir
 def deps do
-  [{:throttle, "~> 0.1.0"}]
+  [{:throttle, "~> 0.1.1"}]
 end
 ```
 
 ## Setup
 
-As of now, Throttle only provides a Redis-backed cache. To configure your Redis connection, please add the following to your configuration in `config/confix.exs`.
+As of now, Throttle only provides a Redis-backed cache. To configure your Redis connection, please add the following to `config/config.exs`.
 
 ```elixir
 config :redis_connection_pool, [
@@ -41,7 +41,7 @@ config :redis_connection_pool, [
 ]
 ```
 
-You can also add throttle contexts to your config. This will allow us to access them by atom only in the future.
+You can also add throttle contexts to your config. This will allow us to access them by atom-only in the future.
 
 ```elixir
 config :throttle, [
@@ -82,7 +82,7 @@ end
 
 Using config contexts means that each request is made under the same key. In the example above, this would be "example2".
 
-Alternatively, we can simply pass a context directly into the allow? function.
+Alternatively, we can simply pass a context directly into the `allow?` function.
 
 ```elixir
 key = "1" # This could be a user id
@@ -115,6 +115,7 @@ defmodule MyRouter do
     send_resp(conn, 200, "hello")
   end
 end
+```
 
 The above would end up creating a leaky bucket throttle. The key would be a join between "mysite" and the IP address of the incoming request.
 
