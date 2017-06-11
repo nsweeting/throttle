@@ -15,7 +15,7 @@ defmodule Throttle.Result do
     allowed: true
   ]
 
-  def new(%Context{keyspace: keyspace, value: value, type: type}) do
+  def new(%Context{keyspace: keyspace, type: type, value: value}) do
     %Result{}
     |> put_started_at
     |> put_namespace
@@ -41,13 +41,20 @@ defmodule Throttle.Result do
   def put_type(%Result{} = result, :rps), do: %{result | type: :rps}
   def put_type(%Result{} = result, :rpm), do: %{result | type: :rpm}
   def put_type(%Result{} = result, :rph), do: %{result | type: :rph}
+  def put_type(%Result{} = result, :bucket), do: %{result | type: :bucket}
   def put_type(%Result{} = result, :interval), do: %{result | type: :interval}
 
   def put_value(%Result{} = result, value) when is_integer(value) do
     %{result | value: value}
   end
+  def put_value(%Result{} = result, value) when is_list(value) do
+    %{result | value: value}
+  end
 
   def put_timespace(%Result{type: :interval} = result) do
+    %{result | timespace: ""}
+  end
+  def put_timespace(%Result{type: :bucket} = result) do
     %{result | timespace: ""}
   end
   def put_timespace(%Result{type: :rps} = result) do
@@ -71,15 +78,22 @@ defmodule Throttle.Result do
   def put_allowed(%Result{count: count, type: :interval} = result) do
     %{result | allowed: count <= 1}
   end
+  def put_allowed(%Result{count: count, type: :bucket} = result) do
+    %{result | allowed: count != nil}
+  end
   def put_allowed(%Result{count: count, value: value} = result) do
     %{result | allowed: count <= value}
   end
 
   def put_delay(%Result{allowed: true} = result), do: result
-  def put_delay(%Result{started_at: time, value: value, type: :interval} = result) do
+  def put_delay(%Result{type: :interval, started_at: time, value: value} = result) do
     %{result | delay: value, delay_until: time + value }
   end
-  def put_delay(%Result{started_at: time, type: :rps} = result) do
+  def put_delay(%Result{type: :bucket, started_at: time, value: [rate: rate, max: _, cost: cost]} = result) do
+    delay = round(cost / rate)
+    %{result | delay: delay, delay_until: time + delay }
+  end
+  def put_delay(%Result{type: :rps, started_at: time} = result) do
     %{result | delay: 1, delay_until: time + 1 }
   end
   def put_delay(%Result{started_at: time, type: type} = result) do

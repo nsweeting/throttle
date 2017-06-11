@@ -1,12 +1,12 @@
 defmodule Throttle.Plug do
   import Plug.Conn
 
-  def init({keyspace, value, type}), do: {keyspace, value, type}
+  def init({keyspace, type, value}), do: {keyspace, type, value}
 
-  def call(conn, {keyspace, value, type}) do
+  def call(conn, {keyspace, type, value}) do
     keyspace = "#{keyspace}/#{ip_to_string(conn)}"
 
-    case Throttle.allow?({keyspace, value, type}) do
+    case Throttle.allow?({keyspace, type, value}) do
       {:ok, _} -> conn
       {:error, result} -> throttle_request(conn, result)
     end

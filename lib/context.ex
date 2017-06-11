@@ -3,8 +3,8 @@ defmodule Throttle.Context do
 
   defstruct [
     :keyspace,
-    :value,
-    :type
+    :type,
+    :value
   ]
 
   @adapter Config.get(:context_adapter, Throttle.Context.Config)
@@ -18,11 +18,11 @@ defmodule Throttle.Context do
   end
 
   def new(nil), do: nil
-  def new({keyspace, value, type}) do
+  def new({keyspace, type, value}) do
     %Context{
       keyspace: keyspace,
+      type: type,
       value: value,
-      type: type
     }
   end
 end

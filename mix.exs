@@ -20,7 +20,10 @@ defmodule Throttle.Mixfile do
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
     [
-      extra_applications: [:logger]
+      extra_applications: [
+        :logger,
+        :redis_connection_pool
+      ]
     ]
   end
 
@@ -50,7 +53,7 @@ defmodule Throttle.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:redis_connection_pool, "~> 0.1.4"},
+      {:redis_connection_pool, "~> 0.1.6"},
       {:plug, "~> 1.3.4"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]

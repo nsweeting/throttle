@@ -22,7 +22,20 @@ use Mix.Config
 #
 
 config :throttle, [
-  contexts: []
+  contexts: [
+    example1: {"example1", :rps, 3}
+  ]
+]
+
+config :redis_connection_pool, [
+  host: "127.0.0.1",
+  port: 6379,
+  password: "",
+  db: 0,
+  reconnect: :no_reconnect,
+  pool_name: :"Redis.Pool",
+  pool_size: 10,
+  pool_max_overflow: 1
 ]
 
 # It is also possible to import configuration files, relative to this
