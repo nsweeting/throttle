@@ -4,7 +4,7 @@ defmodule Throttle.Mixfile do
   def project do
     [
       app: :throttle,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.4",
       description: description(),
       package: package(),
