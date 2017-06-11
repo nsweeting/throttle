@@ -4,7 +4,7 @@ defmodule Throttle.Mixfile do
   def project do
     [
       app: :throttle,
-      version: "0.1.1",
+      version: "0.1.2",
       elixir: "~> 1.4",
       description: description(),
       package: package(),
@@ -29,7 +29,7 @@ defmodule Throttle.Mixfile do
 
   defp description do
     """
-    A general purpose throttle utility. Under development.
+    A general throttle utility. Mainly used to throttle inbound or outbound requests.
     """
   end
 

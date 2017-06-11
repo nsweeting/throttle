@@ -8,7 +8,7 @@ Add the following to your list of dependencies in mix.exs:
 
 ```elixir
 def deps do
-  [{:throttle, "~> 0.1.1"}]
+  [{:throttle, "~> 0.1.2"}]
 end
 ```
 
