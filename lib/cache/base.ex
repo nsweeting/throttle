@@ -3,7 +3,7 @@ defmodule Throttle.Cache.Base do
   
   """
 
-  @type request :: %Throttle.Request{}
+  @type result :: %Throttle.Result{}
 
-  @callback get_count(request) :: request
+  @callback get_count(result) :: result
 end

@@ -22,9 +22,7 @@ use Mix.Config
 #
 
 config :throttle, [
-  controls: [
-    basic: {"test", 10, :minute}
-  ]
+  contexts: []
 ]
 
 # It is also possible to import configuration files, relative to this
