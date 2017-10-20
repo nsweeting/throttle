@@ -97,8 +97,8 @@ defmodule Throttle.Result do
     %{result | delay: 1, delay_until: time + 1 }
   end
   def put_delay(%Result{started_at: time, type: type} = result) do
-    next_window = time 
-    |> DateTime.from_unix! 
+    next_window = time
+    |> DateTime.from_unix!
     |> modify_datetime(type)
     |> DateTime.to_unix
 
@@ -109,6 +109,6 @@ defmodule Throttle.Result do
     %{datetime | minute: datetime.minute + 1, second: 0}
   end
   defp modify_datetime(datetime, :rph) do
-    %{datetime | hour: datetime.min + 1, minute: 0}
+    %{datetime | hour: datetime.hour + 1, minute: 0}
   end
 end
