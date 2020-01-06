@@ -51,12 +51,12 @@ config :throttle, [
     # This would create a throttle context keyed under "example2" that allows 30 requests per minute.
     example2: {"example2", :rpm, 30}
     # This would create a throttle context keyed under "example3" that allows 300 requests per hour.
-    example2: {"example3", :rph, 300}
+    example3: {"example3", :rph, 300}
     # This would create a throttle context keyed under "example4" that allows 1 request every 3 seconds.
-    example2: {"example3", :interval, 3}
+    example4: {"example4", :interval, 3}
     # This would create a throttle context keyed under "example5" using a leaky bucket that adds 1 token every second (rate), 
     # to a maximum of 40 (max), with each request costing 2 tokens (cost).
-    example2: {"example3", :bucket, [rate: 1, max: 40, cost: 2]}
+    example5: {"example5", :bucket, [rate: 1, max: 40, cost: 2]}
   ]
 ]
 ```
